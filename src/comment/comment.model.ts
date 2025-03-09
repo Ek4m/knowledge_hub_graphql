@@ -1,4 +1,4 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { DataTypes } from 'sequelize';
 import {
   BelongsTo,
@@ -6,13 +6,16 @@ import {
   Column,
   ForeignKey,
   Table,
+  AutoIncrement,
 } from 'sequelize-typescript';
 import { DocEntity } from 'src/document/doc.model';
+import { UserEntity } from 'src/user/user.model';
 
 @ObjectType()
 @Table({ tableName: 'comments' })
 export class CommentEntity extends Model {
-  @Field()
+  @Field(() => Int)
+  @AutoIncrement
   @Column({ primaryKey: true, type: DataTypes.INTEGER })
   declare id: number;
 
@@ -34,4 +37,16 @@ export class CommentEntity extends Model {
   @Field(() => DocEntity)
   @BelongsTo(() => DocEntity)
   declare doc: DocEntity;
+
+  @Field(() => Int)
+  @ForeignKey(() => UserEntity)
+  @Column({
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  })
+  declare userId: number;
+
+  @Field(() => UserEntity)
+  @BelongsTo(() => UserEntity)
+  declare user: UserEntity;
 }

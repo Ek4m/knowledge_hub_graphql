@@ -43,10 +43,12 @@ type CategoryEntity {
 }
 
 type CommentEntity {
-  id: Float!
+  id: Int!
   content: String!
   docId: String!
   doc: DocEntity!
+  userId: Int!
+  user: UserEntity!
 }
 
 type SignInResult {
@@ -70,6 +72,7 @@ type Query {
   getDocs: [DocEntity!]
   docDetails(id: String!): DocEntity
   getCategories: [CategoryEntity!]
+  getComments(docId: String!): [CommentEntity!]
 }
 
 type Mutation {
@@ -115,9 +118,10 @@ input CreateCategoryDto {
 
 input CreateCommentDto {
   content: String!
-  docId: Float!
+  docId: String!
 }
 
 type Subscription {
   doccontentedited(userId: Int!): SubscriptionResult!
+  commentadded(docId: String!): CommentEntity!
 }

@@ -9,5 +9,5 @@ export class CreateCommentDto {
 
   @IsNotEmpty()
   @Field()
-  docId: number;
+  docId: string;
 }
