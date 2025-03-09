@@ -7,6 +7,9 @@ import {
   ForeignKey,
   Table,
   AutoIncrement,
+  CreatedAt,
+  UpdatedAt,
+  DeletedAt,
 } from 'sequelize-typescript';
 import { DocEntity } from 'src/document/doc.model';
 import { UserEntity } from 'src/user/user.model';
@@ -49,4 +52,16 @@ export class CommentEntity extends Model {
   @Field(() => UserEntity)
   @BelongsTo(() => UserEntity)
   declare user: UserEntity;
+
+  @Field()
+  @CreatedAt
+  declare createdAt: Date;
+
+  @Field()
+  @UpdatedAt
+  declare updatedAt: Date;
+
+  @Field()
+  @DeletedAt
+  declare deletedAt?: Date;
 }

@@ -49,6 +49,9 @@ type CommentEntity {
   doc: DocEntity!
   userId: Int!
   user: UserEntity!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime!
 }
 
 type SignInResult {
