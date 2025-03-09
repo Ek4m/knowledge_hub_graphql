@@ -34,7 +34,11 @@ export class CommentResolver {
     return this.commentService.getCommentByDoc(docId);
   }
 
-  @Subscription(() => CommentEntity)
+  @Subscription(() => CommentEntity, {
+    filter(payload, variables) {
+      return payload[COMMENT_ADDED].docId === variables.docId;
+    },
+  })
   [COMMENT_ADDED](@Args('docId') docId: string) {
     console.log('Adding comment to document - ', docId);
     return pubSub.asyncIterableIterator(COMMENT_ADDED);
