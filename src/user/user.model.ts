@@ -53,7 +53,7 @@ export class UserEntity extends Model<IUserEntity> {
 
   @Field(() => ProfileEntity, { nullable: true })
   @HasOne(() => ProfileEntity)
-  profile: ProfileEntity;
+  declare profile: ProfileEntity;
 
   @HasMany(() => DocEntity)
   documents: DocEntity[];

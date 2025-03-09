@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateCommentDto } from './types';
 import { CommentEntity } from './comment.model';
 import { UserEntity } from 'src/user/user.model';
+import { ProfileEntity } from 'src/profile/profile.model';
 
 @Injectable()
 export class CommentService {
@@ -13,7 +14,14 @@ export class CommentService {
   getCommentByDoc(docId: string) {
     return CommentEntity.findAll({
       where: { docId },
-      include: [{ model: UserEntity }],
+      include: [
+        {
+          model: UserEntity,
+          include: [
+            { model: ProfileEntity, attributes: ['firstName', 'lastName'] },
+          ],
+        },
+      ],
       order: [['createdAt', 'DESC']],
     });
   }

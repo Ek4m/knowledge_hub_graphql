@@ -30,8 +30,11 @@ export class CommentResolver {
   }
 
   @Query(() => [CommentEntity], { nullable: true })
-  getComments(@Args('docId') docId: string) {
-    return this.commentService.getCommentByDoc(docId);
+  async getComments(@Args('docId') docId: string) {
+    const comments = await this.commentService.getCommentByDoc(docId);
+    console.log('SAAAA_______', comments[0].user);
+    console.log('PROFILE_______', comments[0].user.profile);
+    return comments;
   }
 
   @Subscription(() => CommentEntity, {

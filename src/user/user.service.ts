@@ -3,12 +3,16 @@ import { UserEntity } from './user.model';
 import { SignInDto } from 'src/auth/types/signin';
 import { Encryption } from 'src/common/encryption';
 import { CreateUserDto } from './types/create_user';
+import { ProfileEntity } from 'src/profile/profile.model';
 
 @Injectable()
 export class UserService {
   async byId(id: number) {
     const user = await UserEntity.findByPk(id, {
       attributes: { exclude: ['password'] },
+      include: [
+        { model: ProfileEntity, attributes: ['firstName', 'lastName'] },
+      ],
     });
     return user;
   }
