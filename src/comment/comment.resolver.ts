@@ -32,8 +32,6 @@ export class CommentResolver {
   @Query(() => [CommentEntity], { nullable: true })
   async getComments(@Args('docId') docId: string) {
     const comments = await this.commentService.getCommentByDoc(docId);
-    console.log('SAAAA_______', comments[0].user);
-    console.log('PROFILE_______', comments[0].user.profile);
     return comments;
   }
 
