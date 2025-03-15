@@ -55,6 +55,7 @@ type CommentEntity {
 }
 
 type SignInResult {
+  user: UserEntity!
   accessToken: String!
   refreshToken: String!
 }

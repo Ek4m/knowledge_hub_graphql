@@ -30,7 +30,10 @@ export class UserService {
   }
 
   async login(body: SignInDto): Promise<UserEntity> {
-    const user = await UserEntity.findOne({ where: { email: body.email } });
+    const user = await UserEntity.findOne({
+      where: { email: body.email },
+      include: [{ model: ProfileEntity }],
+    });
     if (!user) throw new BadRequestException("User doesn't exist");
     const validate = Encryption.validate(body.password, user.password!);
     if (!validate) throw new BadRequestException('Invalid credentials');

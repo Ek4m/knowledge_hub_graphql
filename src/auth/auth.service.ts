@@ -40,6 +40,7 @@ export class AuthService {
     const user = await this.userService.login(body);
     const payload = { id: user.id };
     return {
+      user,
       accessToken: this.jwtService.sign(payload, { expiresIn: DAY_IN_SECONDS }),
       refreshToken: this.jwtService.sign(payload, { expiresIn: FIVE_DAYS }),
     };
